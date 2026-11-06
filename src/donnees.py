@@ -15,6 +15,8 @@ def lire_fichier_csv(fichier:str):
 
 
 def creation_donnees():
+    
+
     resultats = lire_fichier_csv('results.csv')
     resultats = resultats[["raceId", "constructorId", "grid", "positionOrder"]]
 
@@ -37,12 +39,17 @@ def creation_donnees():
     grid_possible = df["grid"] > 0 
     df = df[grid_possible]
     df["top10"] = df["positionOrder"] <= 10
+    return df 
 
 
+apercu = creation_donnees()
+print(apercu.head())
 
+
+def creation_graphique(df):
 
     taux = df.groupby("grid")["top10"].mean() * 100
-
+    
     plt.bar(taux.index, taux.values)
     plt.title("Taux de top 10 selon la position de départ")
     plt.xlabel("Position de départ")
@@ -50,8 +57,3 @@ def creation_donnees():
     plt.xticks(range(1, taux.index.max() + 1, 2))
     plt.xlim(0.5, taux.index.max() + 0.5)
     plt.savefig("exploration_grid.png")
-    return df 
-
-
-apercu = creation_donnees()
-print(apercu.head())
