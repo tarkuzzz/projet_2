@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
+ 
 
 
 def lire_fichier_csv(fichier:str):
@@ -33,17 +34,18 @@ def creation_donnees():
     circuits = circuits[["circuitId", "circuitRef", "country"]]
     df = df.merge(circuits, on="circuitId")
 
-    print(df.head())
+    return df 
 
 
+
+
+def nettoyage_donnees(df):
     grid_possible = df["grid"] > 0 
-    df = df[grid_possible]
+    df = df[grid_possible].copy()
     df["top10"] = df["positionOrder"] <= 10
     return df 
 
 
-apercu = creation_donnees()
-print(apercu.head())
 
 
 def creation_graphique(df):
@@ -57,3 +59,14 @@ def creation_graphique(df):
     plt.xticks(range(1, taux.index.max() + 1, 2))
     plt.xlim(0.5, taux.index.max() + 0.5)
     plt.savefig("exploration_grid.png")
+
+
+
+
+if __name__ == "__main__":
+    df = creation_donnees()
+    df = nettoyage_donnees(df)
+    print(df.head())
+    creation_graphique(df)
+
+
