@@ -5,6 +5,12 @@ import os
 
 
 def lire_fichier_csv(fichier:str):
+    """Lit un fichier CSV du dossier donnees/.
+
+    Reçoit : le nom du fichier (ex. "results.csv").
+    Renvoie : un DataFrame où les valeurs "\\N" sont considérées comme manquantes.
+    Échoue : FileNotFoundError si le fichier n'existe pas.
+    """
 
     chemin = os.path.join("donnees", fichier)
     if os.path.exists(chemin) == False:
@@ -16,8 +22,12 @@ def lire_fichier_csv(fichier:str):
 
 
 def creation_donnees():
-    
+    """Réunit les 4 fichiers CSV en un seul tableau.
 
+    Renvoie : un DataFrame avec une ligne par voiture dans une course
+              (résultat, course, écurie et circuit).
+    Échoue : FileNotFoundError si un des fichiers CSV est introuvable.
+    """
     resultats = lire_fichier_csv('results.csv')
     resultats = resultats[["raceId", "constructorId", "grid", "positionOrder"]]
 
@@ -39,7 +49,17 @@ def creation_donnees():
 
 
 
-def nettoyage_donnees(df):
+def nettoyage_donnees(df:pd.DataFrame):
+    """Nettoie le tableau et crée la colonne cible top10.
+
+    - retire les départs depuis les stands (grid = 0) ;
+    - garde seulement les saisons depuis 2010 (le top 10 marque des points) ;
+    - crée top10 = True si la voiture finit dans les 10 premiers.
+
+    Reçoit : le tableau créé par creation_donnees.
+    Renvoie : un nouveau DataFrame nettoyé (l'original n'est pas modifié).
+    Échoue : KeyError si une des colonnes grid, year ou positionOrder manque.
+    """
     grid_possible = df["grid"] > 0 
     df = df[grid_possible].copy()
     df = df[df["year"] >= 2010]
@@ -49,8 +69,12 @@ def nettoyage_donnees(df):
 
 
 
-def creation_graphique(df):
+def creation_graphique(df:pd.DataFrame):
+    """Trace le taux de top 10 selon la position de départ et l'enregistre en image.
 
+    Reçoit : le tableau nettoyé et le chemin de l'image à créer.
+    Échoue : KeyError si les colonnes grid ou top10 manquent.
+    """
     taux = df.groupby("grid")["top10"].mean() * 100
     
     plt.bar(taux.index, taux.values)

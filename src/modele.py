@@ -25,9 +25,19 @@ def separation_donnees(df:pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.
     X_train, X_test, y_train, y_test = train_test_split(X , y, random_state=0, test_size=0.2)
     return X_train, X_test, y_train, y_test
 
+
+
 def exactitude(y_vrai,y_predit):
+    """Calcule l'exactitude (part de bonnes réponses) de façon vectorisée avec NumPy.
+
+    Reçoit : les vraies réponses et les prédictions, de même longueur.
+    Renvoie : un nombre entre 0 et 1
+    """
     juste= y_vrai==y_predit
     return (np.mean(juste))
+
+
+
 
 def creer_modele(profondeur_max: int=5) -> Pipeline:
     """Crée le modèle : encodage des colonnes texte, puis arbre de décision."""
@@ -37,6 +47,8 @@ def creer_modele(profondeur_max: int=5) -> Pipeline:
     ])
     arbre=DecisionTreeClassifier(max_depth=profondeur_max,random_state=0)
     return Pipeline([("preparation", preparation), ("arbre", arbre )])
+
+
 
 def evaluer_modele(modele: Pipeline, X_test: pd.DataFrame, y_test: pd.Series) -> dict:
     """Calcule l'exactitude, le F1 et la matrice de confusion du modèle sur le test."""
@@ -48,6 +60,9 @@ def evaluer_modele(modele: Pipeline, X_test: pd.DataFrame, y_test: pd.Series) ->
         "f1": float(f1_score(y_test, predictions)),
         "matrice_confusion": confusion_matrix(y_test, predictions).tolist(),
     }
+
+
+
 
 def creer_metadonnees(df: pd.DataFrame, resultats: dict) -> dict:
     """Décrit les colonnes d'entrée et le score du modèle, pour construire l'interface."""
@@ -64,12 +79,18 @@ def creer_metadonnees(df: pd.DataFrame, resultats: dict) -> dict:
         "resultats": resultats,
     }
 
+
+
+
 def sauvegarder_modele(modele: Pipeline, metadonnees: dict, dossier: str = "modeles") -> None:
     """Enregistre le modèle (joblib) et ses métadonnées (JSON) dans le dossier donné."""
     os.makedirs(dossier,exist_ok=True)
     joblib.dump(modele, os.path.join(dossier, "modele.joblib"))
     with open(os.path.join(dossier, "metadonnees.json"), "w", encoding="utf-8") as fichier:
         json.dump(metadonnees, fichier, indent=2, ensure_ascii=False)
+
+
+
 
 if __name__ == "__main__":
     df = creation_donnees()
