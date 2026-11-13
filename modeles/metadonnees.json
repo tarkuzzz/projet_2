@@ -1,0 +1,102 @@
+{
+  "colonnes": [
+    "grid",
+    "year",
+    "round",
+    "constructorRef",
+    "circuitRef"
+  ],
+  "numeriques": {
+    "grid": {
+      "min": 1,
+      "max": 24
+    },
+    "year": {
+      "min": 2010,
+      "max": 2024
+    },
+    "round": {
+      "min": 1,
+      "max": 24
+    }
+  },
+  "categorielles": {
+    "constructorRef": [
+      "alfa",
+      "alphatauri",
+      "alpine",
+      "aston_martin",
+      "caterham",
+      "ferrari",
+      "force_india",
+      "haas",
+      "hrt",
+      "lotus_f1",
+      "lotus_racing",
+      "manor",
+      "marussia",
+      "mclaren",
+      "mercedes",
+      "racing_point",
+      "rb",
+      "red_bull",
+      "renault",
+      "sauber",
+      "toro_rosso",
+      "virgin",
+      "williams"
+    ],
+    "circuitRef": [
+      "albert_park",
+      "americas",
+      "bahrain",
+      "baku",
+      "buddh",
+      "catalunya",
+      "hockenheimring",
+      "hungaroring",
+      "imola",
+      "interlagos",
+      "istanbul",
+      "jeddah",
+      "losail",
+      "marina_bay",
+      "miami",
+      "monaco",
+      "monza",
+      "mugello",
+      "nurburgring",
+      "portimao",
+      "red_bull_ring",
+      "ricard",
+      "rodriguez",
+      "sepang",
+      "shanghai",
+      "silverstone",
+      "sochi",
+      "spa",
+      "suzuka",
+      "valencia",
+      "vegas",
+      "villeneuve",
+      "yas_marina",
+      "yeongam",
+      "zandvoort"
+    ]
+  },
+  "resultats": {
+    "exactitude": 0.7734067663257278,
+    "exactitude_reference": 0.5381589299763966,
+    "f1": 0.7567567567567568,
+    "matrice_confusion": [
+      [
+        535,
+        149
+      ],
+      [
+        139,
+        448
+      ]
+    ]
+  }
+}

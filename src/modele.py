@@ -7,6 +7,10 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import confusion_matrix, f1_score
+import json
+import os
+import joblib
+
 
 
 def separation_donnees(df:pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
@@ -45,6 +49,28 @@ def evaluer_modele(modele: Pipeline, X_test: pd.DataFrame, y_test: pd.Series) ->
         "matrice_confusion": confusion_matrix(y_test, predictions).tolist(),
     }
 
+def creer_metadonnees(df: pd.DataFrame, resultats: dict) -> dict:
+    """Décrit les colonnes d'entrée et le score du modèle, pour construire l'interface."""
+    return {
+        "colonnes": ["grid", "year", "round", "constructorRef", "circuitRef"],
+        "numeriques": {
+            colonne: {"min": int(df[colonne].min()), "max": int(df[colonne].max())}
+            for colonne in ["grid", "year", "round"]
+        },
+        "categorielles": {
+            colonne: sorted(df[colonne].unique().tolist())
+            for colonne in ["constructorRef", "circuitRef"]
+        },
+        "resultats": resultats,
+    }
+
+def sauvegarder_modele(modele: Pipeline, metadonnees: dict, dossier: str = "modeles") -> None:
+    """Enregistre le modèle (joblib) et ses métadonnées (JSON) dans le dossier donné."""
+    os.makedirs(dossier,exist_ok=True)
+    joblib.dump(modele, os.path.join(dossier, "modele.joblib"))
+    with open(os.path.join(dossier, "metadonnees.json"), "w", encoding="utf-8") as fichier:
+        json.dump(metadonnees, fichier, indent=2, ensure_ascii=False)
+
 if __name__ == "__main__":
     df = creation_donnees()
     df = nettoyage_donnees(df)
@@ -53,7 +79,8 @@ if __name__ == "__main__":
     modele=creer_modele()
     modele.fit(X_train,y_train)
     resultats=evaluer_modele(modele, X_test, y_test)
-    print(resultats)
+    metadonnes=creer_metadonnees(df,resultats)
+    sauvegarder_modele(modele,metadonnes)
 
 
    
