@@ -2,6 +2,10 @@ from donnees import creation_donnees, nettoyage_donnees
 from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.tree import DecisionTreeClassifier
 
 
 def separation_donnees(df:pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
@@ -20,12 +24,23 @@ def exactitude(y_vrai,y_predit):
     juste= y_vrai==y_predit
     return (np.mean(juste))
 
+def creer_modele(profondeur_max: int=5) -> Pipeline:
+    """Crée le modèle : encodage des colonnes texte, puis arbre de décision."""
+    preparation= ColumnTransformer([ 
+    ("texte", OneHotEncoder(handle_unknown="ignore"), ["constructorRef", "circuitRef"]),
+    ("nombres", "passthrough", ["grid", "year", "round"]),
+    ])
+    arbre=DecisionTreeClassifier(max_depth=profondeur_max,random_state=0)
+    return Pipeline([("preparation", preparation), ("arbre", arbre )])
+
 if __name__ == "__main__":
     df = creation_donnees()
     df = nettoyage_donnees(df)
     X_train , X_test , y_train ,y_test= separation_donnees(df)
     predictions_reference=np.full(len(y_test),False)
     print(exactitude(y_test,predictions_reference))
+    modele=creer_modele()
+    print(modele)
 
 
    
