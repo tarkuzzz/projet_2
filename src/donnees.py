@@ -42,6 +42,7 @@ def creation_donnees():
 def nettoyage_donnees(df):
     grid_possible = df["grid"] > 0 
     df = df[grid_possible].copy()
+    df = df[df["year"] >= 2010]
     df["top10"] = df["positionOrder"] <= 10
     return df 
 
