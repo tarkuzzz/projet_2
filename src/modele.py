@@ -40,7 +40,9 @@ if __name__ == "__main__":
     predictions_reference=np.full(len(y_test),False)
     print(exactitude(y_test,predictions_reference))
     modele=creer_modele()
-    print(modele)
+    modele.fit(X_train,y_train)
+    predictions=modele.predict(X_test)
+    print(exactitude(y_test,predictions))
 
 
    
