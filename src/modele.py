@@ -6,6 +6,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import confusion_matrix, f1_score
 
 
 def separation_donnees(df:pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
@@ -33,16 +34,26 @@ def creer_modele(profondeur_max: int=5) -> Pipeline:
     arbre=DecisionTreeClassifier(max_depth=profondeur_max,random_state=0)
     return Pipeline([("preparation", preparation), ("arbre", arbre )])
 
+def evaluer_modele(modele: Pipeline, X_test: pd.DataFrame, y_test: pd.Series) -> dict:
+    """Calcule l'exactitude, le F1 et la matrice de confusion du modèle sur le test."""
+    predictions = modele.predict(X_test)
+    reference = np.full(len(y_test), False)
+    return {
+        "exactitude": float(exactitude(y_test, predictions)),
+        "exactitude_reference": float(exactitude(y_test, reference)),
+        "f1": float(f1_score(y_test, predictions)),
+        "matrice_confusion": confusion_matrix(y_test, predictions).tolist(),
+    }
+
 if __name__ == "__main__":
     df = creation_donnees()
     df = nettoyage_donnees(df)
     X_train , X_test , y_train ,y_test= separation_donnees(df)
     predictions_reference=np.full(len(y_test),False)
-    print(exactitude(y_test,predictions_reference))
     modele=creer_modele()
     modele.fit(X_train,y_train)
-    predictions=modele.predict(X_test)
-    print(exactitude(y_test,predictions))
+    resultats=evaluer_modele(modele, X_test, y_test)
+    print(resultats)
 
 
    
