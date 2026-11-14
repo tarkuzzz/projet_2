@@ -6,9 +6,11 @@ from exceptions import DonneeInvalide
 class Variable_general(ABC):
 
     def __init__(self,nom:str):
+        """Reçoit le nom de la variable (ex. "grid")."""
         self._nom = nom
 
     def __str__(self):
+        """Renvoie le nom de la variable."""
         return self._nom
 
     @abstractmethod
@@ -20,6 +22,7 @@ class Variable_general(ABC):
 class Variable_numerique(Variable_general):
 
     def __init__(self, nom:str,maximum:int,minimum:int):
+        """Reçoit le nom de la variable, puis son maximum et son minimum (dans cet ordre)."""
         super().__init__(nom)
         self._maximum = maximum 
         self._minimum = minimum
@@ -27,6 +30,7 @@ class Variable_numerique(Variable_general):
     
 
     def verfifier_variable(self,input_utilisateur:str):
+        
         
         try:
             valeur = int(input_utilisateur)
