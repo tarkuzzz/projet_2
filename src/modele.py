@@ -74,7 +74,7 @@ def creer_metadonnees(df: pd.DataFrame, resultats: dict) -> dict:
             for colonne in ["grid", "year", "round"]
         },
         "categorielles": {
-            colonne: sorted(df[colonne].unique().tolist())
+            colonne: sorted(df[colonne].unique().tolist(), key=lambda nom: nom.lower())
             for colonne in ["constructorRef", "circuitRef"]
         },
         "resultats": resultats,

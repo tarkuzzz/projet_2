@@ -16,8 +16,8 @@ def lire_fichier_csv(fichier:str):
     if os.path.exists(chemin) == False:
         raise FileNotFoundError("Le fichier n'existe pas")
     else:
-        return pd.read_csv(chemin,na_values=r"\N")
-
+       with open(chemin, encoding="utf-8") as fichier:
+            return pd.read_csv(fichier, na_values=r"\N")
 
 
 
