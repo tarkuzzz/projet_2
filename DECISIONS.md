@@ -2,8 +2,8 @@
 
 | Choix | Options envisagées | Choix retenu et justification | Validé par l'auxiliaire (date) |
 |---|---|---|---|
-| Domaine | [autres domaines envisagés] | **Formule 1** : nous sommes passionnés de Formule 1 depuis tout petits, et c'est motivant d'utiliser une passion pour un projet d'école. Question claire pour un utilisateur : une voiture finira-t-elle dans le top 10 ? | Facultatif |
-| Jeu de données | [autres jeux envisagés] | **Kaggle Formula 1 World Championship** (results, races, constructors, circuits) : CSV, colonnes numériques et catégorielles, aucune donnée personnelle | Facultatif |
+| Domaine | Aucun autre envisagé | **Formule 1** : nous sommes passionnés de Formule 1 depuis tout petits, et c'est motivant d'utiliser une passion pour un projet d'école. Question claire pour un utilisateur : une voiture finira-t-elle dans le top 10 ? | Facultatif |
+| Jeu de données | Aucun entre envisagé | **Kaggle Formula 1 World Championship** (results, races, constructors, circuits) : CSV, colonnes numériques et catégorielles, aucune donnée personnelle | Facultatif |
 | Nettoyage | Garder ou retirer les départs depuis les stands | **Retirer les lignes avec grid = 0** : ces voitures n'ont pas de vraie position de départ | Facultatif |
 | Période | Toutes les saisons (1950–2024) ; depuis 2010 | **Depuis 2010** : le top 10 marque des points sur toute la période, donc la cible a le même sens partout. 6 351 lignes (contre 25 121). Arbre : 77,3 % (contre 68,0 % avec toutes les saisons) | Facultatif |
 | Cible | Position exacte (régression), podium, top 10 | **top10** (classification) : positionOrder <= 10 ; classes presque équilibrées (environ 48 % de top 10) ; le podium ne concerne qu'environ 15 % des lignes | Facultatif |

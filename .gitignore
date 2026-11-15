@@ -2,4 +2,4 @@ __pycache__/
 .pytest_cache/
 .coverage
 modeles/historique.csv
-.DS_Stor
+.DS_Store
