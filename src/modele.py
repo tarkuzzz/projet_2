@@ -10,6 +10,7 @@ from sklearn.metrics import confusion_matrix, f1_score
 import json
 import os
 import joblib
+from exceptions import ModeleIntrouvable
 
 
 
@@ -90,6 +91,22 @@ def sauvegarder_modele(modele: Pipeline, metadonnees: dict, dossier: str = "mode
         json.dump(metadonnees, fichier, indent=2, ensure_ascii=False)
 
 
+
+def charger_modele(dossier: str = "modeles") -> tuple[Pipeline, dict]:
+    """Recharge le modèle et ses métadonnées, sans ré-entraîner.
+
+    Reçoit : le dossier où le modèle a été sauvegardé.
+    Renvoie : le modèle et le dictionnaire de métadonnées.
+    Échoue : ModeleIntrouvable si modele.joblib ou metadonnees.json n'existe pas.
+    """
+    chemin_modele = os.path.join(dossier, "modele.joblib")
+    chemin_metadonnees = os.path.join(dossier, "metadonnees.json")
+    if not os.path.exists(chemin_modele) or not os.path.exists(chemin_metadonnees):
+        raise ModeleIntrouvable("Modèle introuvable : lancez d'abord python src/modele.py")
+    modele = joblib.load(chemin_modele)
+    with open(chemin_metadonnees, encoding="utf-8") as fichier:
+        metadonnees = json.load(fichier)
+    return modele, metadonnees
 
 
 if __name__ == "__main__":
