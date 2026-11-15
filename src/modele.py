@@ -28,7 +28,7 @@ def separation_donnees(df:pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.
 
 
 
-def exactitude(y_vrai,y_predit):
+def exactitude(y_vrai,y_predit)-> float:
     """Calcule l'exactitude (part de bonnes réponses) de façon vectorisée avec NumPy.
 
     Reçoit : les vraies réponses et les prédictions, de même longueur.

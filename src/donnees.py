@@ -4,7 +4,7 @@ import os
  
 
 
-def lire_fichier_csv(fichier:str):
+def lire_fichier_csv(fichier:str) -> pd.DataFrame:
     """Lit un fichier CSV du dossier donnees/.
 
     Reçoit : le nom du fichier (ex. "results.csv").
@@ -21,7 +21,7 @@ def lire_fichier_csv(fichier:str):
 
 
 
-def creation_donnees():
+def creation_donnees() -> pd.DataFrame:
     """Réunit les 4 fichiers CSV en un seul tableau.
 
     Renvoie : un DataFrame avec une ligne par voiture dans une course
@@ -49,7 +49,7 @@ def creation_donnees():
 
 
 
-def nettoyage_donnees(df:pd.DataFrame):
+def nettoyage_donnees(df:pd.DataFrame) -> pd.DataFrame:
     """Nettoie le tableau et crée la colonne cible top10.
 
     - retire les départs depuis les stands (grid = 0) ;
@@ -69,7 +69,7 @@ def nettoyage_donnees(df:pd.DataFrame):
 
 
 
-def creation_graphique(df:pd.DataFrame):
+def creation_graphique(df:pd.DataFrame)-> None:
     """Trace le taux de top 10 selon la position de départ et l'enregistre en image.
 
     Reçoit : le tableau nettoyé et le chemin de l'image à créer.
