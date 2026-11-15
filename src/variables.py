@@ -32,7 +32,7 @@ class Variable_numerique(Variable_general):
 
     
 
-    def verfifier_variable(self,input_utilisateur:str)-> str:
+    def verfifier_variable(self,input_utilisateur:str)-> int:
         """Vérifie que la saisie est un entier dans l'intervalle accepté.
 
         Reçoit : le texte saisi par l'utilisateur.
@@ -68,7 +68,7 @@ class Variable_non_numerique(Variable_general):
 
     
 
-    def verfifier_variable(self,input_utilisateur:str):
+    def verfifier_variable(self,input_utilisateur:str)-> str:
         """Vérifie que la saisie fait partie de la liste des valeurs acceptées.
 
         Reçoit : le texte saisi par l'utilisateur.
