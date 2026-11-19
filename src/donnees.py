@@ -72,7 +72,7 @@ def nettoyage_donnees(df:pd.DataFrame) -> pd.DataFrame:
 def creation_graphique(df:pd.DataFrame)-> None:
     """Trace le taux de top 10 selon la position de départ et l'enregistre en image.
 
-    Reçoit : le tableau nettoyé et le chemin de l'image à créer.
+    Reçoit : le tableau nettoyé .
     Échoue : KeyError si les colonnes grid ou top10 manquent.
     """
     taux = df.groupby("grid")["top10"].mean() * 100

@@ -4,7 +4,7 @@ from exceptions import DonneeInvalide
 from modele import charger_modele
 from variables import Variable_non_numerique, Variable_numerique
 from historique import ajouter_historique, lire_historique
-
+import os
 
 LIBELLES = {
     "grid": "Position de départ",
@@ -17,7 +17,7 @@ LIBELLES = {
 class Application:
     """Réunit le modèle, les variables d'entrée et l'historique des prédictions."""
 
-    def __init__(self, dossier: str = "modeles", chemin_historique: str = "modeles/historique.csv"):
+    def __init__(self, dossier: str = "modeles",chemin_historique: str = os.path.join("modeles", "historique.csv")):
         """Charge le modèle sauvegardé et crée une variable par colonne d'entrée."""
         self._modele, self.metadonnees = charger_modele(dossier)
         self._chemin_historique = chemin_historique

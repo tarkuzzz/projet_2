@@ -1,7 +1,6 @@
 import csv 
 import os 
-COLONNES = ["grid", "year", "round", "constructorRef", "circuitRef",
-            "country", "prediction", "probabilite"]
+COLONNES = ["grid", "year", "round", "constructorRef", "circuitRef", "prediction", "probabilite"]
 
 def ajouter_historique(entre:dict, prediciton_top10:bool,probabilite_top10:float, chemin_historique:str)-> None:
     """Ajoute une prédiction à la fin du fichier CSV d'historique.

@@ -24,7 +24,7 @@ class Variable_general(ABC):
 class Variable_numerique(Variable_general):
     """Une variable entière comprise entre un minimum et un maximum (ex. la position de départ)."""
 
-    def __init__(self, nom:str,maximum:int,minimum:int) -> int:
+    def __init__(self, nom:str,maximum:int,minimum:int):
         """Reçoit le nom de la variable, puis son maximum et son minimum (dans cet ordre)."""
         super().__init__(nom)
         self._maximum = maximum 
@@ -51,7 +51,7 @@ class Variable_numerique(Variable_general):
     
 
         if valeur > self._maximum or valeur < self._minimum:
-            raise DonneeInvalide(f"mettre une donnée comprise dans l'intervalle {self._minimum} et {self._maximum} ")
+            raise DonneeInvalide(f"mettre une donnée comprise entre {self._minimum} et {self._maximum} ")
             
         else:
             self._valeur = valeur 
