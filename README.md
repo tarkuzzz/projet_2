@@ -12,8 +12,8 @@ On peut l'utiliser par exemple après les qualifications, quand la position de d
 
 ## Jeu de données
 
-- **Source :** [nom exact du jeu de données] sur Kaggle : [lien de la page Kaggle]
-- **Licence :** [à recopier depuis la page Kaggle]
+- **Source :** Formula 1 World Championship (1950 - 2024) sur Kaggle : https://www.kaggle.com/datasets/rohanrao/formula-1-world-championship-1950-2020
+- **Licence :** CC0: Public Domain
 - **Fichiers utilisés :** `results.csv`, `races.csv`, `constructors.csv` et `circuits.csv`, dans le dossier `donnees/`
 - **Après nettoyage :** 6 351 lignes (saisons 2010 à 2024, sans les départs depuis la voie des stands), environ 48 % de top 10
 - **Colonnes d'entrée :** `grid`, `year`, `round` (numériques) ; `constructorRef`, `circuitRef` (catégorielles)
